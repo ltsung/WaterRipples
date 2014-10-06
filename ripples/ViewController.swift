@@ -29,15 +29,16 @@ class ViewController: UIViewController {
          var tappedPoint = gestureRecognizer.locationInView(self.view)
         
          var ripple = UIView(frame: CGRect(x: tappedPoint.x, y: tappedPoint.y, width: 20, height: 20))
-         //ripple.backgroundColor = UIColor.blueColor()
+        
          view.addSubview(ripple)
         
+         ripple.layer.cornerRadius = 10.0
         
-         ripple.transform = CGAffineTransformMakeScale(1, 1)
+         ripple.transform = CGAffineTransformMakeScale(0.3, 0.3)
         
          ripple.backgroundColor = UIColor.whiteColor()
         
-         UIView.animateWithDuration(1.0, animations: {
+         UIView.animateWithDuration(1.5, animations: {
             ripple.backgroundColor = UIColor.blueColor()
            
             ripple.transform = CGAffineTransformMakeScale(self.imageView.frame.width, self.imageView.frame.height)
@@ -46,7 +47,7 @@ class ViewController: UIViewController {
                 
                 UIView.animateWithDuration(1.0, delay: 0.2, options: nil, animations: {
                   ripple.backgroundColor = UIColor.whiteColor()
-                  ripple.transform = CGAffineTransformMakeScale(1, 1)
+                  ripple.transform = CGAffineTransformMakeScale(0.3, 0.3)
             }, completion: nil)
         }
     }
