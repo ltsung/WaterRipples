@@ -10,6 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
                             
+    @IBOutlet weak var imageView: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +23,34 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    
+    @IBAction func rippleTap(gestureRecognizer: UITapGestureRecognizer) {
+         println("tapped")
+         var tappedPoint = gestureRecognizer.locationInView(self.view)
+        
+         var ripple = UIView(frame: CGRect(x: tappedPoint.x, y: tappedPoint.y, width: 20, height: 20))
+         //ripple.backgroundColor = UIColor.blueColor()
+         view.addSubview(ripple)
+        
+        
+         ripple.transform = CGAffineTransformMakeScale(1, 1)
+        
+         ripple.backgroundColor = UIColor.whiteColor()
+        
+         UIView.animateWithDuration(1.0, animations: {
+            ripple.backgroundColor = UIColor.blueColor()
+           
+            ripple.transform = CGAffineTransformMakeScale(self.imageView.frame.width, self.imageView.frame.height)
+            
+            }){ (finished: Bool) -> Void in
+                
+                UIView.animateWithDuration(1.0, delay: 0.2, options: nil, animations: {
+                  ripple.backgroundColor = UIColor.whiteColor()
+                  ripple.transform = CGAffineTransformMakeScale(1, 1)
+            }, completion: nil)
+        }
+    }
+    
 }
+
 
