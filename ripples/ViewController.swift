@@ -218,10 +218,74 @@ class ViewController: UIViewController {
         
     }
         
-    @IBAction func dragWater(sender: AnyObject) {
+    @IBAction func dragWater(recognizer: UIPanGestureRecognizer) {
+        let translation = recognizer.translationInView(self.view)
+        var touchPoint: CGPoint!
         
+        if recognizer.state == UIGestureRecognizerState.Began {
+            touchPoint = recognizer.locationInView(self.view)
+        } else if recognizer.state == UIGestureRecognizerState.Changed {
+            touchPoint = recognizer.locationInView(self.view)
+            generateWaves(touchPoint)
+        } else if recognizer.state == UIGestureRecognizerState.Ended {
+            touchPoint = recognizer.locationInView(self.view)
+            generateLastRipple(touchPoint)
+        }
         
     }
+    
+    func generateWaves(touchPoint: CGPoint) {
+        var ripple1 = UIView(frame: CGRect(x: touchPoint.x, y: touchPoint.y, width: 15, height: 15))
+        var ripple2 = UIView(frame: CGRect(x: touchPoint.x, y: touchPoint.y, width: 15, height: 15))
+        var ripple3 = UIView(frame: CGRect(x: touchPoint.x, y: touchPoint.y, width: 15, height: 15))
+        
+        ripple1.layer.cornerRadius = 7.5
+        ripple2.layer.cornerRadius = 7.5
+        ripple3.layer.cornerRadius = 7.5
+        
+        view.addSubview(ripple3)
+        view.addSubview(ripple2)
+        view.addSubview(ripple1)
+        
+        ripple1.backgroundColor = UIColor.whiteColor()
+        ripple2.backgroundColor = UIColor.grayColor()
+        ripple3.backgroundColor = UIColor.whiteColor()
+        
+        ripple1.transform = CGAffineTransformMakeScale(1, 1)
+        ripple2.transform = CGAffineTransformMakeScale(2, 2)
+        ripple3.transform = CGAffineTransformMakeScale(2.5, 2.5)
+        
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            ripple1.alpha = 0.15
+            ripple2.alpha = 0.1
+        })
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            ripple3.alpha = 0.05
+        })
+        UIView.animateWithDuration(1, animations: { () -> Void in
+            ripple1.alpha = 0
+            ripple1.transform = CGAffineTransformMakeScale(2, 2)
+            
+            ripple2.alpha = 0.05
+            ripple2.transform = CGAffineTransformMakeScale(2.5, 2.5)
+            
+            ripple3.alpha = 0.05
+            ripple3.transform = CGAffineTransformMakeScale(3.5, 3.5)
+        })
+        UIView.animateWithDuration(1, animations: { () -> Void in
+            ripple2.alpha = 0
+            ripple2.transform = CGAffineTransformMakeScale(3.5, 3.5)
+            
+            ripple3.alpha = 0
+            ripple3.transform = CGAffineTransformMakeScale(4, 4)
+        })
+        
+    }
+    
+    func generateLastRipple(touchPoint: CGPoint) {
+        
+    }
+    
 
 }
     
