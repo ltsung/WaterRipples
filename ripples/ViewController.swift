@@ -17,8 +17,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         //animateBackground()
-        imageView.backgroundColor = UIColor.blueColor()
-        imageView.alpha = 0.5
+        //imageView.backgroundColor = UIColor.blueColor()
+        //imageView.alpha = 0.5
         // Do any additional setup after loading the view, typically from a nib.
     }
 
